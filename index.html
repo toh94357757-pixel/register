@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Panel - Free Fire iOS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Phetsarath OT', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(20, 10, 30, 0.95)), 
+                        url('https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?q=80&w=1000&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 380px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #00f3ff;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: linear-gradient(90deg, #ff0055, #00f3ff);
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .panel-body {
+            padding: 20px;
+        }
+
+        #loginScreen {
+            display: block;
+            text-align: center;
+        }
+
+        .login-box label {
+            font-size: 13px;
+            color: #00f3ff;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            background: #0b0f19;
+            border: 1px solid #00f3ff;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00f3ff, #0077ff);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #ff3366;
+            min-height: 18px;
+        }
+
+        #menuScreen {
+            display: none;
+        }
+
+        .menu-title {
+            font-size: 14px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            color: #ff3366;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .feature-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 4px solid #00f3ff;
+        }
+
+        .feature-item span {
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #475569;
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #00f3ff;
+            box-shadow: 0 0 8px #00f3ff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(21px);
+        }
+
+        .game-select-section {
+            margin-top: 15px;
+            border-top: 1px solid #334155;
+            padding-top: 12px;
+        }
+
+        .game-select-section label {
+            font-size: 13px;
+            color: #00f3ff;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .radio-group label {
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .launch-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff0055, #ff7700);
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="panel-header">
+            🔥 VIP PANEL FREE FIRE 🔥
+        </div>
+        <div class="panel-body">
+            
+            <!-- ຫນ້າປ້ອນ KEY (ຕ້ອງພິມເອງ) -->
+            <div id="loginScreen" class="login-box">
+                <label>ກະລຸນາປ້ອນ KEY ເພື່ອເຂົ້າສູ່ລະບົບ:</label>
+                <input type="text" id="keyInput" placeholder="ກະລຸນາພິມ KEY ທີ່ນີ້">
+                <button onclick="checkKey()">ເຂົ້າສູ່ເມນູ</button>
+                <div class="error-msg" id="errorMsg"></div>
+            </div>
+
+            <!-- ຫນ້າເມນູຫຼັກ -->
+            <div id="menuScreen">
+                <div class="menu-title">-- ເລືອກຟັງຊັນການໃຊ້ງານ --</div>
+
+                <div class="feature-item">
+                    <span>ດູດຫົວ 100% 🔫</span>
+                    <label class="switch"><input type="checkbox" onchange="toggleFeature(this, 'ດູດຫົວ 100%')"><span class="slider"></span></label>
+                </div>
+                <div class="feature-item">
+                    <span>ຊ່ວຍລາກ 76% 🔫</span>
+                    <label class="switch"><input type="checkbox" onchange="toggleFeature(this, 'ຊ່ວຍລາກ 76%')"><span class="slider"></span></label>
+                </div>
+                <div class="feature-item">
+                    <span>ຈໍໄວ 4999 DPI ⚙️</span>
+                    <label class="switch"><input type="checkbox" onchange="toggleFeature(this, 'ຈໍໄວ 4999 DPI')"><span class="slider"></span></label>
+                </div>
+                <div class="feature-item">
+                    <span>ກັນດຳ 100% 🛡️</span>
+                    <label class="switch"><input type="checkbox" onchange="toggleFeature(this, 'ກັນດຳ 100%')"><span class="slider"></span></label>
+                </div>
+                <div class="feature-item">
+                    <span>ກັນແບນ 100% 🛡️</span>
+                    <label class="switch"><input type="checkbox" onchange="toggleFeature(this, 'ກັນແບນ 100%')"><span class="slider"></span></label>
+                </div>
+
+                <div class="game-select-section">
+                    <label>ເລືອກເວີຊັນເກມ:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gameVersion" value="ff" checked> FREE FIRE</label>
+                        <label><input type="radio" name="gameVersion" value="max"> FREE FIRE MAX</label>
+                    </div>
+                    <button class="launch-btn" onclick="launchGame()">🚀 ຢືນຢັນການຕັ້ງຄ່າ</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function checkKey() {
+            const enteredKey = document.getElementById('keyInput').value.trim();
+            const correctKey = "WONE3G91NISLBAQ";
+            const errorMsg = document.getElementById('errorMsg');
+            
+            if (enteredKey === correctKey) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('menuScreen').style.display = 'block';
+            } else {
+                errorMsg.innerText = "❌ KEY ບໍ່ຖືກຕ້ອງ! ກະລຸນາລອງໃໝ່";
+            }
+        }
+
+        // ຟັງຊັນແຈ້ງເຕືອນເວລາເປີດ-ປິດ ປຸ່ມຟັງຊັນຕ່າງໆ
+        function toggleFeature(element, featureName) {
+            if (element.checked) {
+                alert("✅ ເປີດໃຊ້ງານ: " + featureName + " ສຳເລັດ!");
+            } else {
+                alert("❌ ປິດໃຊ້ງານ: " + featureName);
+            }
+        }
+
+        function launchGame() {
+            const selectedVersion = document.querySelector('input[name="gameVersion"]:checked').value;
+            alert("🚀 บันทึกการตั้งค่า Free Fire (" + selectedVersion.toUpperCase() + ") เรียบร้อยแล้ว!");
+        }
+    </script>
+</body>
+</html>
